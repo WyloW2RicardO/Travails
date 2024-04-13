@@ -1,24 +1,242 @@
-# Régrétions
+# Régrétions Linéaire
 
-- [Régrétions](#régrétions)
-  - [adequation modele linéaire](#adequation-modele-linéaire)
-    - [variable qualitatives](#variable-qualitatives)
-  - [Detection point atypique](#detection-point-atypique)
-    - [Action](#action)
-    - [Methode](#methode)
-  - [Selection](#selection)
-    - [Optimisation](#optimisation)
-    - [Comparaison](#comparaison)
-  - [Autre](#autre)
+On cherche ici a **expliquer** une variable $Y$ à l'aide d'une variable $X$ indépendant et **reciproquement** par une fontion aprochant au mieux
+la regréssion difaire de la corrélation. Toutefois l'exitence d'une relation implique pas une causalité, **corrélationn'est pas causalité** du peut être une autre variable.
+<!--- $Y$ : variable à expliquer, endogène ; supposé aléatoire
+<!--- $X$ : c'est la variable explicative, exogène ; supposée fix-->
+<!--$$f_n\in arg min_{f\in F}\hat{R}_n(f):=arg min_{f\in F}\frac{1}{n}\sum_{i=1}^{n}(y_i-f(x_i))^2$$  
+<!--L’estimateur fn perd sont pouvoir prédictif bien que l’erreur 
+<!--quadratique moyenne diminue quand l’espace F s’agrandit. 
+<!--On restera donc dans l'espace des fonctions linéaire.-->
+
+- [Régrétions Linéaire](#régrétions-linéaire)
+  - [Rappel](#rappel)
+  - [Coefficient de corelation](#coefficient-de-corelation)
+    - [Bravais-Pearson](#bravais-pearson)
+      - [Cofficient de détermination](#cofficient-de-détermination)
+      - [coefficient influencé](#coefficient-influencé)
+    - [Spearman](#spearman)
+      - [coefficient influencé](#coefficient-influencé-1)
+    - [Student](#student)
+      - [Sinificative](#sinificative)
+      - [Interval de Confience](#interval-de-confience)
+  - [Simple](#simple)
+    - [Hypotese](#hypotese)
+      - [lien non symetrique des variables.](#lien-non-symetrique-des-variables)
+      - [Etape spécification model](#etape-spécification-model)
+    - [Estimation](#estimation)
+      - [Teste d'Hypotese](#teste-dhypotese)
+    - [Decomposition de la variance et r²](#decomposition-de-la-variance-et-r)
+  - [Multiple](#multiple)
+    - [Hypotese](#hypotese-1)
+      - [Test d'hypotese](#test-dhypotese)
+    - [Adequation](#adequation)
+      - [variable qualitatives](#variable-qualitatives)
+    - [Detection point atypique](#detection-point-atypique)
+      - [Action](#action)
+      - [Methode](#methode)
+    - [Selection](#selection)
+      - [Optimisation](#optimisation)
+      - [Comparaison](#comparaison)
+    - [Autre](#autre)
   - [Annex](#annex)
     - [Exo](#exo)
-      - [Simple](#simple)
+      - [Simple](#simple-1)
       - [Multipbe](#multipbe)
       - [Quantitative](#quantitative)
       - [Selection](#selection-1)
     - [Remerciment](#remerciment)
 
-## adequation modele linéaire
+## Rappel
+
+- Moyenne : $x=\frac{1}{n-1}\sum_{i=1}^{n}x_i$
+- Ecart-type : $\sigma=\sqrt{\text{Var}}$
+- Variance : dispertion des point
+  ; $\text{Var}(X)=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2$
+- Covarience : le sens de la liaison et son intensité
+  ; $\text{Cov}(X,Y)=\frac{n\bar{x}\bar{y}}{n-1}\sum_{i=1}^{n}x_iy_i$
+
+- Variance transformé : $\text{Var}(\alpha X+\beta) = \alpha^2\text{Var}(X)$
+- Variance pythagore : $\text{Var}(X+Y)=\text{Var}(X)+\text{Var}(Y)+2\text{Cov}(XY)$
+- Covarience ... : $\text{Cov}(X,X)=\text{Var}(X)>0$
+- Covarience symetrique : $\text{Cov}(X,Y)=\text{Cov}(Y,X)$
+- Covarience transformé : $\text{Cov}(X,\alpha Y+\beta)=\alpha \text{Cov}(X,Y)$
+- Covarience indépendant : $X\amalg Y\Rightarrow\text{Cov}(X,Y)=\text{E}(XY)-\text{E}(X)\text{E}(Y)=0$
+
+Elle **modélise** une liaison monotone si cov non null. La covariance mesure la tendance des deux variables à être simultanément (dessus ou en dessous de leurs espérances respectives).
+
+## Coefficient de corelation
+
+On suposerar que Y est linéairement corréler avec X ;$Y=\alpha X+\beta$
+$$\begin{align*}
+Y-\bar{y}=&\alpha X+\beta-\bar{y}
+=\alpha X+\beta-\alpha\bar{x}-\beta
+=\alpha (X-\bar{x})\\
+\beta=&Y-\alpha X\\
+\alpha=&\frac{Y-\bar{y}}{X-\bar{x}}
+=\frac{(Y-\bar{y})(X-\bar{x})}{(X-\bar{x})^2}\\
+\alpha=&\frac{\sum y_i-\bar{y}\sum x_i-\bar{x}}{\sum (x_i-\bar{x})^2}
+=\frac{\text{Cov}(X,Y)}{\text{Var}(X)}
+\end{align*}$$
+
+### Bravais-Pearson
+
+La covariance est déffinie dans l'ensemble des réels.  
+On normalise à 1 alors de la covariance par le produit des écarts-type des variables ce qui autorise les comparaisons.
+$$r=\frac{\text{Cov}(X,Y)}{\sigma(X)\sigma(Y)}$$
+<!--\begin{DEM} <!-- lien ?
+<!--\end{DEM}-->
+#### Cofficient de détermination
+La valeur de r n'a pas de signiffication intrinsèque.
+$r^2$ s'interprète comme la proportion de variance de Y (resp. X) linéairement expliquée par X (resp. Y ).
+<!--\begin{DEM} <!-- pour quoi ?
+<!--    $$
+<!--        r^2=&\frac{\text{Cov}^2(X,Y)}{\text{Var}(X)\text{Var}(Y)}  
+<!--        r}^2=&\frac{\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\frac{1}{n-2}\sum_{i=1}^{n}(x_i-\bar{x})^2\frac{1}{n-2}\sum_{i=1}^{n}(y_i-\bar{y})^2}  
+<!--        =&\frac{(n-2)^2\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{(n-1)\sum_{i=1}^{n}(x_i-\bar{x})^2\sum_{i=1}^{n}(y_i-\bar{y})^2}
+<!--    $$
+<!--    $$
+<!--    $$
+<!--\end{DEM}-->
+
+#### coefficient influencé
+
+- **linéariser** l'une des variableLes sur les cas correlation non linéaire monotone, pour se ramené au cas linéaire.
+- **jamais** le coefficient de corrélationLes pour les cas non linéaire et non monotone.
+- **non-rebuste** : r prend en compte les point extreme car dans sa formule chaque fonction prend en compte la moyenne qui est semsible à ses valeur.
+- **variation des points** : r n'est pas un indicateur de taille d'effet.
+- **pas de prediction**
+
+### Spearman
+
+Il est basé sur les rangs et est utilisé pour les cas de fort varibilité non abérante.  
+**Ordoné** de maniere relative chaque variable aléatoire pour gomé les asperités.
+nomé R et S pour les X et Y  
+**Aplique** le coefficient de Bravais-Pearson sur R et S
+
+#### coefficient influencé
+
+- test hypotese non-paramétrique donc **aucune hypotese de linéarité} sur la sur X et Y mais monotone
+- s'adapte au variable quantitative et ordinales.
+- rebuste par les point extreme.
+- Puissence  légérement inferieur à Bravais-Pearson.
+- si il y à beaucou ex-cau pas coérent, on utilisera le taux de kendall.
+<!--
+- verifier si il sont proche (moyenne/mediane)
+- il faut comme meme se demander pour quoi cela serai vrai ?
+(verifier)
+- on peut regarder si c'est une erreur (abérante)
+- on peut spécifier les criters (extreme) si il influence 
+- en dernier recour il faut dire pourquoi on le sumprime
+\end{itemize}
+\end{COND}-->
+
+### Student
+
+Soit $\epsilon\leqslant 5\%$ seuil d'erreur de type 1.  
+La valeur ponctuelle d'un estimateur est en général insuffisante et il est nécessaire de lui adjoindre un intervalle de conffiance de par la symétrique la phrase doit etre vrai dans les deux sens.
+
+#### Sinificative
+
+monotone $\Rightarrow r\neq 0$
+$$t=r\sqrt{\frac{n-2}{1-r}}\thicksim S(df)\\
+df=n-2\textnormal{ degré liberté et p-value}\leqslant\epsilon$$
+
+#### Interval de Confience
+monotone $\Rightarrow 0\notin IC_{1-\epsilon}$
+
+## Simple
+
+### Hypotese
+
+$\forall i\in N, y_i=\beta_0+\beta_1 x_i+\epsilon_i;\epsilon_i$ est le residu (non expliquer)  
+les $\epsilon_i$ doit etre aléatoire (indépendant, identiquement FormatRepartie) esperance null
+- **homoscédatisité** : varience constante et indépendant de l'observation normalement distibuer
+- **non autocorélation** : indépendant entre eux $\text{Cov}(\epsilon_i,\epsilon_j)=0$
+
+#### lien non symetrique des variables.
+
+- Y est obligatoirment continu, quantitative, ordonal d'au moin 5 catégorie, si non c'est une regretion logistique binair ou polytomique
+- X est continu ou binair.
+- si non ...
+
+#### Etape spécification model
+- quel model va-ton tester?
+- quel sont les hypotese sous-jacentes?
+- quel paremetre del pop fait intervenire?
+- estimation parametre $\beta_i$
+- teste d'hypothese sur les parametre du model
+- effectuer test hypotese ou intervalle de conffiance sur chaque parametre du model.
+- adequoition de la regretion s'ecarte t-elle trop des condition du model?
+
+### Estimation
+
+determiner la droite par la methide des moindres carré ordinaire ; $\min\Phi(\beta_0,\beta_1)=\min\sum\epsilon^2=\min\sum (y_i+\beta_0+\beta_1 x_i)$
+\begin{DEM} <!-- on derive et on cherche quand c'est null-->
+$$\begin{align*}
+\frac{d\Phi}{d\beta_0}=&-2*\sum y_i+\beta_0+\beta_1 x_i
+=-2*\sum y_i-2n\beta_0-2\beta_1\sum x_i=0\\
+\frac{1}{2n}\frac{d\Phi}{d\beta_0}=&-\sum y_i/n-\beta_0-\beta_1\sum x_i/n
+=-\bar{y}-\beta_0-\beta_1\bar{x}=0\\
+\beta_0=&\bar{y}-\beta_1\bar{x}\\
+\frac{d\Phi}{d\beta_1} =& 2*\sum -x_i y_i+\beta_0 x_i +\beta_1 x_i^2
+=2*\sum -x_i y_i+2\beta_0\sum x_i +2\beta_1\sum x_i^2=0\\
+\frac{1}{2n}\frac{d\Phi}{d\beta_1}=& \sum x_i y_i/n+\beta_0\sum x_i/n +\beta_1\sum x_i^2/n
+=\sum x_i y_i/n+(\bar{y_i}-\beta_1\bar{x_i})\bar{x_i} +\beta_1\sum x_i^2/n=0\\
+=& \sum x_i y_i/n+\bar{y_i}\bar{x_i}-\beta_1\bar{x_i}^2 +\beta_1\sum x_i^2/n=0\\
+\dots  
+\beta_1=&\frac{\text{Cov}(X,Y)}{\text{Var}(X)}
+\end{align*}$$
+
+$$\begin{align*}
+r=&\frac{\text{Cov}(X,Y)}{\sigma(X)\sigma(Y)}
+=\beta_1\frac{\text{Var}(X)}{\sigma(X)\sigma(Y)}
+=\beta_1\frac{\sigma(X)}{\sigma(Y)}\\
+\beta_1=&r\frac{\sigma(Y)}{\sigma(X)}
+\end{align*}$$
+
+par le theoreme de ***Gauss-Markov*** on demontre que les $\widehat\beta_i$ est un estimateur sans biais et de plus petite varience mais elle reste des variable aléatoire distribué selon la loi normal donc si on change l'echantillon provoque changement de resulta. Cette proprieté vas nous permetre de faire des intervalle des conffiance et des test d'hypotese.
+
+#### Teste d'Hypotese
+
+question 1 : lien entre X et Y avec seuil $\alpha$
+H0 : pas de prediction possible entre les variable ; $\beta_{i}=0$
+H1 : prediction possible ; $\beta_i\neq 0$. Si H1 est vrais mais reste un minimum local
+Par le test de student ou de Ficher qui on les memes consitions que le model linéaire
+question 2 : l'intervalle contenan $\beta_i$
+$IC_i=[\beta_i\pm t_{\alpha,n-2}\sigma(\beta_i)]$ ...
+t est une V.A de la distrition de Student ; $\alpha=5\% et t\approx 1.96$
+faire un test  pour $i=0$ n'aide pas à repondre.
+si $0\in IC\Leftrightarrow H1$ est vrais si non ne rejeter H0
+
+### Decomposition de la variance et r²
+
+indicateur de qualité du model ; $r²=0\Leftrightarrow$ moyenne est tout ausi efficace pour predire,
+on cherche $\min\text{Var}(\epsilon)=\min\frac{\sum{(y_i-\bar{y_i})²}}{n}=\min\frac{SCT}{n}$
+$$\begin{align*}
+SCT&=\sum{(y_i-\bar{y_i})²}=\sum{(y_i-\bar{y_i}+\widehat{y_i}-\widehat{y_i})²}\\
+&=\sum{(y_i-\widehat{y_i})²}+\sum{(y_i-\bar{y_i})²}+2\sum{(y_i-\widehat{y_i})(y_i-\bar{y_i})}\\
+&=SCR+SCE+0\\
+r²&=SCE/SCT=1-\frac{SCR}{SCT} \in [0;1]
+\end{align*}$$
+
+## Multiple
+
+### Hypotese
+
+- $\epsilon_i$ est V.A I.I.D selon $N(0;\sigma²)$
+- $X_i$ indépendant entre elle (cassé)
+
+Par la méthodes des moidre carrés ordinaire on determine $\beta_i$, représantan la variation d'une quantité en ajustan sur les autre variable explicative
+l'intervalle de conffiance est le meme que le simple ; $IC_i=[\beta_i\pm t_{\alpha,n-2}\sigma(\beta_i)]$
+
+#### Test d'hypotese
+
+- type 1 F global : si le model est equivalent à une constante regroupent toute les variable
+- type 2 Student ou F : si X_i est Sinificative
+- type 3 F partiel : si l'apport simultanément d'un sous-ensemble de variable améliore le model (comparaisons)
+
+### Adequation
 
 La régretion linéaire s'appuie sur un certain nombre d'hypotese théorique qui doivent etre à peut prés respecté
 
@@ -33,14 +251,14 @@ La régretion linéaire s'appuie sur un certain nombre d'hypotese théorique qui
 iregularité residus : les residus ne doit pa etre corrélé (Durbin-Watsn non sinificatif)
 test de normalité( p<$\alpha$ non normal) : test prent la tete sur de petit détaille pour n grand et ne permet pas de determiner n petit. ne pas cumuler les erreur
 
-### variable qualitatives
+#### variable qualitatives
 
 - **Binair** : on peut utiliser les code insee, la regretion est equivalent au teste de student
 - **non binair** : prent p-1 variable binaire dite indicatrice indisosiable (tout ou rien)
 
-## Detection point atypique
+### Detection point atypique
 
-### Action
+#### Action
 
 - supretion : on le dit sur un criter en amont mais le model devient moin rebuste
 - garde : model plus rebuste
@@ -49,24 +267,24 @@ test de normalité( p<$\alpha$ non normal) : test prent la tete sur de petit dé
   - transformation de tout le monde par une ***fonction***
   - windsorising : prenne le ***max*** de l'interval choisie
 
-### Methode
+#### Methode
 
 - **Univarier** : Sur un petit nombre observation
-  - alors tout valeur qui n'apartien pas $[\mu +- 3\sigma]$ sont atypique mais elles est dépant des extremes ; si distribution normale alor 99.7% sont incluse dans l'interval
+  - alors tout valeur qui n'apartien pas $[\mu +- 3\sigma]$ sont atypique mais elles est dépant des extremes ; si distribution normale alor 99.7<!-- sont incluse dans l'interval
   - **Innerfence** : hor de la boite à moustache $[Q1 - 1.5 IQ ; Q3 + 1.5 IQ]$, regle moin restrictive et insensible valeur extremes
   - outfence
 - **Multivarier** : couple de valeur normal devient atypique
   - **levier** : indique influence de l'observation par la distance de makalanobis $\in [O;1]$ ; si $h>\frac{p+1}{n}$ est anormale
   - **Résidu standardisé** : normalise les residus avec ecartype de 1 pour la comparer avec la regretion si on ne l'avias pas pris
-  - residu studentisé : on fait la regretion sur le point retiré ; pour n grand et $\alpha=5%$ |t_i|>2 (3 ou 3.5)  est anormale
+  - residu studentisé : on fait la regretion sur le point retiré ; pour n grand et $\alpha=5<!--$ |t_i|>2 (3 ou 3.5)  est anormale
   - **distance de cooks** : comparaison de tout les residus entre avec ou sans le point retirer ; d_i>4/(n-p-1)>1 est anormal
 
-## Selection
+### Selection
 
 la ***varieter*** des model possible pour expliquer Y avec $p$ variable expliquative ($2^p-1$ model possible) donne une complexiter d'***interpretation*** et le cout pour ***colecter*** toute les données qui sont peut-etre ***colinéaire*** et ne sera pas ***rebuste*** à un autre echentillon.
 Meme si on peut metre $p=n-1$ variable, on doit donc minimiser le nombre de variable pour eviter le sur aprentisage grace à la ***connaicence*** du domaine.
 
-### Optimisation
+#### Optimisation
 
 On teste toutes les combinaison possible des variable qui maximise ou minimise un criter
 
@@ -78,7 +296,7 @@ On teste toutes les combinaison possible des variable qui maximise ou minimise u
 - **AIC** (Akaike Information Criter) : mieu c'est si il est ***bas***, Compareson du SCR avec augmentation du nombre de varible ; $n\log\frac{SCR}{n}+2(p+1)$
 - **BIC** (Bayesian Information Criter) : boucoup ***plus penalisan*** que AIC pour $n>7$ ; $n\log(\frac{SCR}{n})+\log(n)(p+1)$
 
-### Comparaison
+#### Comparaison
 
 Optimiser sans avoir à efectuer toute les regrétion grace aux methode Assendante pour une simpliciter de compréention et de calcul ou Decendante pour un resulta efficase mais une variable suprimer n'est plu remie en cause
 
@@ -88,7 +306,7 @@ Optimiser sans avoir à efectuer toute les regrétion grace aux methode Assendan
 >***choix*** du melleur resultat de criteer
 >si le cas on ***boucle*** si non fin
 
-## Autre
+### Autre
 
 - **Modification d'effet** : interaction entre les variable du à leur posibiliter non independente alors on rajoute une variable  egale au produit des deux
 - **Model à mesure répéter** (longitudinal, intra-sujet) : mesur au fil du temps sur le meme sujet
@@ -122,7 +340,7 @@ salaire <- c(33,36,40,32,90,17,15,22,29,30)
 statut <- c("cadre","cadre","cadre","cadre","cadre","non-cadre","non-cadre","non-cadre","non-cadre","non-cadre")
 ```
 
-1. Effectuer un test permetant de repondre à la quetion avec un seuil $\alpha$=5%.
+1. Effectuer un test permetant de repondre à la quetion avec un seuil $\alpha$=5<!--.
 
   ```R
   ## On est bien d'une variable explicative boolein à une continue à expliqué, on peut donc apliqué la regretion linéair et non le test de correlation.
@@ -131,7 +349,7 @@ statut <- c("cadre","cadre","cadre","cadre","cadre","non-cadre","non-cadre","non
   S=seq(0,1,by=0.25)
   # 0.00 0.25 0.50 0.75 1.00
   q1=quantile(salaire,S)
-  #    0%   25%   50%   75%  100% 
+  #    0<!--   25<!--   50<!--   75<!--  100<!-- 
   # 15.00 23.75 31.00 35.25 90.00 
   salaire_quatil=cut(salaire,breaks=q1)
   # (31,35.2] (35.2,90] (35.2,90] (31,35.2] (35.2,90] (15,23.8] (15,23.8] (23.8,31] (23.8,31]
@@ -152,7 +370,7 @@ statut <- c("cadre","cadre","cadre","cadre","cadre","non-cadre","non-cadre","non
   # data:  Cmt
   # X-squared = 9, df = 3, p-value = 0.02929
   # Message d'avis : Dans chisq.test(Cmt) : L’approximation du Chi-2 est peut-être incorrecte
-  ### il faut que tout 90% des categorie quantitative
+  ### il faut que tout 90<!-- des categorie quantitative
   ## p-value < alpha : les variable ne son pas indépendente, il est donc intérésent de fair un teste de corrélation ou de regretion linéaire simple
 
   ### student car on pert de l'information avec le X2
@@ -325,7 +543,7 @@ on ne compar que paraport au groupe de control
 #### Selection
 
 ```R
-path <- "C:\\Users\\LENOVO\\Downloads\\pourboires.csv"
+path <- "C:  Users  LENOVO  Downloads  pourboires.csv"
 dataSet <- read.table(
     file=path,
     header=TRUE,
