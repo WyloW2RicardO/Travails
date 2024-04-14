@@ -1,18 +1,3 @@
----
-title : 'teste'
-output:
-  html_document: 
-    highlight: kate
-    toc: yes
-  pdf_document: 
-    fig_caption: yes
-    highlight: kate
----
-
-```{r}
-paste("Hello", "World!")
-```
-
 # Titre
 
 Nous cherchons à calculer la covariance entre la cylindrée et la puissance de 28 véhicules 
@@ -30,7 +15,7 @@ dataSet <- readxl::read_excel(
 #rbind(head(dataSet, 2), tail(dataSet, 2))
 ```
 ```{r}
-describe(base::summary(object = dataSet))
+base::summary(object = dataSet)
 #mean(x = as.numeric(dataSet[3]))
 #dataSet[3]
 ```
