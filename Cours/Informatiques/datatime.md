@@ -10,7 +10,9 @@ datetime fournit des classes pour travailler avec la date et l'heure. Ces classe
 - [Data Time](#data-time)
   - [Format](#format)
   - [Classes](#classes)
+  - [Fréquence](#fréquence)
   - [Autres](#autres)
+    - [Exemple](#exemple)
   - [Annex](#annex)
     - [Webographie](#webographie)
 
@@ -35,7 +37,17 @@ datetime fournit des classes pour travailler avec la date et l'heure. Ces classe
 |datetime|combinaison de date et d'heure avec les attributs respectifs|
 |tzinfo|fournit des objets d'informations sur le fuseau horaire|
 
+## Fréquence
+
+De plus, nous pouvons définir une fréquence, par exemple quotidienne ('D'), horaire ('H'), quotidienne calendaire ('D'), quotidienne ouvrable ('B'), hebdomadaire ('W'), mensuelle ('M'), trimestrielle ('Q'), annuelle ('A'), et bien d'autres. Les fréquences peuvent également être spécifiées comme des multiples de l'une des fréquences de base, par exemple '5D' pour tous les cinq jours.
+
+```python
+Nouv_series = pd.date_range(start="6/1/2019", end="6/1/2020", freq="D")
+```
+
 ## Autres
+
+### Exemple
 
 Si vous avez une chaîne de date-heure telle que "2019-07-29 14:30:40Z" et que vous souhaitez la convertir en un objet datetime Python, vous pouvez utiliser la fonction datetime.strptime. Le code suivant vous montre comment réaliser cela :
 
@@ -67,16 +79,6 @@ Après l'exécution de ce code, python_datetime contiendra un objet datetime Pyt
 date_as_string = "2019-07-29 14:30:40Z"
 date_object = datetime.strptime(date_as_string, "%Y-%m-%d %H:%M:%SZ")
 print("date_object =", date_object, "class = ", type(date_object))
-```
-De retour à nos données, nous allons examiner la colonne des dates. Tout d'abord, vérifiez le type de données stocké dans la colonne des dates.
-Le type de données est int64. Nous aimerions transformer ces entiers en dates. Nous réalisons cela en utilisant à nouveau le module datetime pour cette application.
-
-Une autre fonctionnalité intéressante avec l'utilisation de Python et du module datetime est la génération d'une nouvelle série temporelle. Nous pouvons définir une date de début start="6/1/2019" et une date de fin end="6/01/2020" de la série.
-
-De plus, nous pouvons définir une fréquence, par exemple quotidienne ('D'), horaire ('H'), quotidienne calendaire ('D'), quotidienne ouvrable ('B'), hebdomadaire ('W'), mensuelle ('M'), trimestrielle ('Q'), annuelle ('A'), et bien d'autres. Les fréquences peuvent également être spécifiées comme des multiples de l'une des fréquences de base, par exemple '5D' pour tous les cinq jours.
-
-```python
-Nouv_series = pd.date_range(start="6/1/2019", end="6/1/2020", freq="D")
 ```
 
 ## Annex
