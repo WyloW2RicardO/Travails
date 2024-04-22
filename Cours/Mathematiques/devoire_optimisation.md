@@ -23,7 +23,7 @@ Trouver un ouvert U contenant l’origine tel que $0.999 < f (x, y) < 1.001$ pou
 
 ## 2 Continuité
 
-Soit $f : \R ^n\to \R$  une fonction continue au point $x=(\alpha _i)_{i\in [1,n]}$
+Soit $f : \R ^n\to \R$  une fonction continue au point $x = ( \alpha _i)_{i \in [1,n]}$
 Montrer que la fonction partielle $f_i(t) = f(\alpha _1,\dots , \alpha _{i−1}, t, \alpha _{i+1},\dots , \alpha _n)$ est continue en $\alpha _i$.
 
 - $\forall t \in \R ,\exists \delta >0,\forall x \in \R ;\alpha _i-t < \delta$
@@ -40,20 +40,16 @@ $(0, 0)$ :
 1. $f(x,y)=\sin(x y)\frac{1+x}{1+y}$ :  $f$ est un produit de fonction qui admet une limite en $(0,0)$ alors $\lim _{x,y\to(0,0)}f(x,y)=0*1=0$
 1. $f(x,y)=\log(\frac{1+x}{1+y})$ : $f$ est une conposition de fonction et le logarithme est continue en $1$ alors $\lim _{x,y\to(0,0)}f(x,y)=\log(1)=0$
 
-## 3 Changement variable
+## 4 Changement variable
 
 Sachant que $\forall t>0,\log(t)\leq t−1$, calculer la limite de $f(x,y)=\frac{\log(1+xy)}{1+x²+y^4}$ en $(0, 0)$.
 
-$$
-\text{Soit } E=\{x,y\in\R\vert xy\leq -1\}\\
-\forall x,y\in\R\setminus\{E\},\exist a,b,t\in\R ^3; (x,y)=(at,bt)\\
-\begin{align*}
-f(at,bt)&=\frac{\log(1+abt²)}{1+(at)²+(bt)^4}\\
-&\leq\frac{abt²}{1+a²t^2+b^4t^4}\\
-&\leq\frac{abt²}{1+t^2(a²+b^4)}\\
-&\to _{t\to 0} 0
-\end{align*}
-$$
+$\text{Soit } E = \{ x,y\in \R \vert xy\leq -1\}$
+- $\forall x,y\in\R\setminus\{E\},\exists a,b,t\in\R ^3; (x,y)=(at,bt)$
+- $f(at,bt)=\frac{\log(1+abt²)}{1+(at)²+(bt)^4}$
+- $\leq\frac{abt²}{1+a²t^2+b^4t^4}$
+- $\leq\frac{abt²}{1+t^2(a²+b^4)}$
+- $\to _{t\to 0} 0$
 
 Soit $f(x,y)=\frac{\sin(x^2−y^2)}{x^2+y^2}$
 Soit $\gamma(t) = (at, bt)$ où $(a, b)\in\R^2\setminus(0,0)$ est fixé.
@@ -69,17 +65,13 @@ Soit $f (x, y) =\frac{xy^3}{x^2+2y^2}$
 f admet-elle une limite en (0,0) ?
 f est-elle prolongeable par continuité en (0, 0) ?
 
-$$
-\forall x,y\in\R,\exist a,b,t\in\R ^3; (x,y)=(at,bt)\\
-\begin{align*}
-f(at,bt)&=\frac{at*b^3t^3}{a²t^2+2b²t^2}\\
-&=\frac{ab^3t^4}{t^2(a²+2b²)}\\
-&=\frac{ab^3t^2}{a²+2b²}\text{ continue}\\
-&\to _{t\to 0} 0
-\end{align*}
-$$
+$\forall x,y\in\R,\exist a,b,t\in\R ^3; (x,y)=(at,bt)$
+- $f(at,bt)=\frac{at*b^3t^3}{a²t^2+2b²t^2}$
+  - $=\frac{ab^3t^4}{t^2(a²+2b²)}$
+  - $=\frac{ab^3t^2}{a²+2b²}\text{ continue}$
+  - $\to _{t\to 0} 0$
 
-## 4 Dérivé
+## 5 Dérivé
 Montrer que la fonction $f(x,y)=\frac{y^2}{x}$ si $x\neq 0$, $f(0,y) = y$ admet une
 dérivée directionnelle suivant tout vecteur $v(h,k)$ au point $( 0 , 0)$, mais n’est pas continue en $(0 , 0)$.
 
