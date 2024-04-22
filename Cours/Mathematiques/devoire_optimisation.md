@@ -10,6 +10,7 @@
 ## 1 Trouver l'ouvert
 
 Trouver un ouvert U contenant l’origine tel que $0.999 < f (x, y) < 1.001$ pour : $\forall (x, y) ∈ U; f(x, y) = \frac{1 + x}{1 + y}$
+
 - $0.999 < f (x, y) < 1.001$
 - $\epsilon = 0.001, 1-\epsilon < \frac{1 + x}{1 + y} < 1+\epsilon$
 - $-\epsilon<\frac{x-y}{1+y}<\epsilon$
@@ -24,9 +25,10 @@ Trouver un ouvert U contenant l’origine tel que $0.999 < f (x, y) < 1.001$ pou
 
 Soit $f : \R ^n\to \R$  une fonction continue au point $x=(\alpha _i)_{i\in [1,n]}$
 Montrer que la fonction partielle $f_i(t) = f(\alpha _1,\dots , \alpha _{i−1}, t, \alpha _{i+1},\dots , \alpha _n)$ est continue en $\alpha _i$.
-- $\forall t\in \R ,\exists \delta >0,\forall x \in \R ;\alpha _i-t < \delta$
+
+- $\forall t \in \R ,\exists \delta >0,\forall x \in \R ;\alpha _i-t < \delta$
 - $\text{Soit }\Delta=(\beta _1,\dots , \beta _{i−1}, \delta, \beta _{i+1},\dots , \beta _n);\forall i,\beta _i=0$
-- $\Rightarrow \text{par continuité de f : }\lim _{\Delta \to 0}f(x+\Delta )=f(x)$
+- $\text{par continuité de f : }\lim _{\Delta \to 0}f(x+\Delta )=f(x)$
 
 ## 3 Calcule de limite
 

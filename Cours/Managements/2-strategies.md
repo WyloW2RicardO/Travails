@@ -49,8 +49,8 @@ Hiérarchiser et Séléctioné les plus pertinantes.
     - [Performance](#performance)
     - [Evaluer](#evaluer)
       - [Prévition](#prévition)
-- [Annex](#annex)
-  - [Remerciment](#remerciment)
+  - [Annex](#annex)
+    - [Remerciment](#remerciment)
 
 ## Diagnostique
 
@@ -523,9 +523,9 @@ Permet d’aller ***plus loin que la BCG*** en diversifiant les critères, selon
 
 ### Performance
 
-fond propres : batiment, 
+fond propres : batiment,
 obsolution : evolution maintenace
-2 petit en cas de panne 
+2 petit en cas de panne
 former pour objectif com pour toucher plus pour augmenter benef
 effort marketing agment vente prod plus marge
 antagoniste, contradictoire reformuler ou verifier

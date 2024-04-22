@@ -76,20 +76,6 @@ On va aussi s'intéresser à d'autres courbes tracées sur la surface.
 - La **courbe de niveau** à $z=c$ : On l'obtient en partant de la ligne de niveau $c$ et en remontant à l'altitude $c$, c'est la trace de $\mathcal{G}_f$ dans le plan.  $$\mathcal{G}_f \cap (z=c) = \big\{ (x,y,c)\in \R ^3 \mid f(x,y)=c \big\}.$$
 - **Surfaces de niveau** : Pour les fonctions de $3$ variables, le graphe étant dans $\R ^4$, on ne peut le dessiner. La notion analogue à la ligne de niveau est celle de **surface de niveau**, donnée par l'équation $f(x,y,z)=c$.
 
-\begin{miniexercices}
-\sauteligne
-\begin{enumerate}
-- Déterminer et dessiner le domaine de définition de la fonction définie par $f(x,y) = \ln(xy)$.
-  Même question avec $g(x,y) = \sqrt{2x-y^2+1}$ et $h(x,y,z) = \frac1x + \frac1y + \frac1z$.
-   
-- Déterminer l'image des fonctions de la question précédente.
-  
-- Soit $f(x,y) = xy$. Dessiner le graphe de $f$, les tranches et les lignes de niveau. Quelle surface reconnaissez-vous ? Vous pouvez vous aider d'un ordinateur. Mêmes questions avec $g(x,y) = -x^2-y^2$. 
-  
-\end{enumerate}
-\end{miniexercices}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Limites}
 
