@@ -3,6 +3,8 @@
 - [Fonctions de plusieurs variables](#fonctions-de-plusieurs-variables)
   - [Domaine de définition](#domaine-de-définition)
   - [Image](#image)
+  - [Limite](#limite)
+  - [Polaire](#polaire)
 
 ## Domaine de définition
 
@@ -53,3 +55,18 @@
    - $\Im f=\R$
    - Contraposer : $\forall x,y \in D_f, f(x,y)>0$
    - Reciproque : $\forall w\in\R^+\setminus0; f(x,y)=w \\\Leftrightarrow \frac1x+\frac1y+\frac1z=w \\\Leftrightarrow \frac{z(y+x)+xy}{xyz}=w \\\forall t, \exist a,b,c; (x,y,z)=(at,bt,ct) \\\Leftrightarrow \frac{c(b+a)+ab}{abct}=w \\\Leftrightarrow t=\frac{c(b+a)+ab}{abcw}$
+
+## Limite
+
+- Soit $f(x,y) = \frac{1+x}{1+y}$. Trouver un ouvert $U$ contenant l'origine tel que $0.999 < f(x,y) < 1.001$ pour tout $(x,y) \in U$.
+- Soit $f : \R ^n \rightarrow \R $ une fonction continue au point $(x_1,\ldots,x)$.
+Montrer que la fonction partielle $f_i : \R  \longrightarrow \R $ définie par $f_i(t) = f(x_1,\ldots,x_{i-1},t,x_{i+1},\ldots,x)$ est continue en $x_i$.
+- Sachant que la limite de $f(x,y) = \frac{1+x}{1+y}$ en $(0,0)$ est $1$, calculer la limite des fonctions suivantes en $(0,0)$ : $\frac{1+x}{1+y}+ x^2+y^2$ ; $\frac{1+y}{1+x}$ ;   $\sin(xy)\frac{1+x}{1+y}$ ; $\ln\left(\frac{1+x}{1+y}\right)$.
+- Sachant que $\ln(t) \le t-1$ pour tout $t>0$, calculer la limite de $\frac{\ln(1+xy)}{1+x^2+y^4}$ en $(0,0)$.
+- Soit $f(x,y)= \frac{\sin(x^2-y^2)}{x^2+y^2}$. Soit $\gamma(t) = (at,bt)$ où $(a,b) \in \R ^2\setminus \{(0,0)\}$ est fixé. Calculer la limite de $(f \circ \gamma)(t)$ lorsque $t\to0$ en fonction de $(a,b)$. $f$ admet-elle une limite en $(0,0)$ ?  $f$ est-elle prolongeable par continuité en $(0,0)$ ?
+- Soit $f$ définie sur $\R ^2\setminus \{ (0,0) \}$ par $f(x,y) = \frac{xy^3}{x^2+2y^2}$. $f$ admet-elle une limite en $(0,0)$ ? $f$ est-elle prolongeable par continuité en $(0,0)$ ? Mêmes questions avec $f(x,y)=\frac{xy^3}{x^4+2y^4}$
+
+## Polaire
+
+- Calculer l'angle $\theta$ des coordonnées polaires $[r:\theta]$ d'un point $(x,y)$ dans le cas $x>0$, $y <0$. Puis faire les cas où $x<0$.
+- La fonction $f$ définie par $f(x,y)=\frac{(2x+3y)^3}{x^2+y^2}$ admet-elle une limite au point $(0,0)$ ? Même question avec $f(x,y)=\frac{(2x+3y)^2}{x^2+y^2}$, puis $f(x,y)=\frac{2x+3y}{x^2+y^2}$

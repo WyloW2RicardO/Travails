@@ -20,8 +20,8 @@ Déterminer les deux points critiques de $f$ et la nature de chacun d'entre eux.
        - det $H_{-1,0}=2e^{\frac43} > 0$ et $r < 0 \Rightarrow$ minima
      - $H_{1,0}=\frac{-2e^{-\frac23}, 0}{0,2e^{-\frac23}}$
        - det $H_{1,0}=-2e < 0 \Rightarrow$ sell
-2. Soit $f(x,y)=x^3-3xy^2$
-3. Soit $f(x,y)=x^4+y^4-2x^2$
+1. Soit $f(x,y)=x^3-3xy^2$
+1. Soit $f(x,y)=x^4+y^4-2x^2$
    - $f \in C^2$
    - $\frac{\partial f}{\partial x}(x,y)=4x^3-4x$
    - $\frac{\partial f}{\partial y}(x,y)=4y^3$
@@ -65,7 +65,7 @@ Déterminer les deux points critiques de $f$ et la nature de chacun d'entre eux.
        - $\lim_{x\to +\infty}f(x,0)=+\infty$ donc local
      - $H_{(2,1)}=108>0$ et $r=12>0$ donc minima local
        - $\lim_{x\to -\infty}f(x,0)=-\infty$ donc local
-2. $f(x,y)=x^3+y^3-3axy, a\in \R$
+1. $f(x,y)=x^3+y^3-3axy, a\in \R$
    - $f \in C^\infty$
    - $\frac{\partial f}{\partial x}(x,y)=3x^2-3ay$
    - $\frac{\partial f}{\partial y}(x,y)=3y^2-3ax$
@@ -84,5 +84,12 @@ Déterminer les deux points critiques de $f$ et la nature de chacun d'entre eux.
      - $H_{(a,a)}=27a^2>0$ estrema
        - si $a<0$ alors $r<0$ maxima local
        - si $a>0$ alors $r>0$ minima local
-3. $f(x,y)=x^4+y^3-4y-2$
-4. $f(x,y)=x^3+xy^2-yx^2-y^3$
+1. $f(x,y)=x^4+y^3-4y-2$
+1. $f(x,y)=x^3+xy^2-yx^2-y^3$
+1. $f(x,y) = x^3+5x^2y-y^2$.
+1. $f(x,y) = xe^{x^2-y^2}$.
+1. $f(x,y,z) = xy^2 \ln(z)$.
+1. $f(x,y) = x^2+y^2$ sur $C = [-1,1] \times [-1,1]$
+1. $f(x,y)= xy$ sur $C = [-1,1] \times [-1,1]$
+1. $f(x,y) = x^3-y^2$ sur $D = \lbrace (x,y) \in \R^2  \mid  x^2 + y^2 \leq 1 \rbrace$.
+1. $f(x,y) = y\cos(x)$ sur $B = \R \times [0,1]$
