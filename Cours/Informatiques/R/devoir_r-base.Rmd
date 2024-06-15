@@ -1,0 +1,173 @@
+---
+title: "TP noté"
+output: html_notebook
+---
+## Exercice 1
+Télécharger le fichier de données laptops depuis Classroom
+1. Charger le jeu de données en utilisant
+```{r}
+filles <- "laptops.csv"
+data_origine <- read.table(
+  file = filles,
+  sep=";",
+  header = TRUE
+)
+```
+
+
+2. Visualiser le contenu d'un tableau de données à l'aide de la fonction View. Quelles sont les variables dans ce jeu de données ?
+```{r}
+# Visualiser le contenu d'un tableau de données à l'aide de la fonction View.
+data_origine
+# Quelles sont les variables dans ce jeu de données ?
+str(data_origine)
+```
+
+3. Afficher les 6 premières lignes de l'objet "laptops"
+```{r}
+head(
+  x = data_origine,
+  n = 6L
+)
+```
+
+4. Attribuer aux colonnes du dataset les noms suivants : Prix", "Taille",
+"RAM", "Disque", "Ports", "Marque", "Poids" (indice : names())
+```{r}
+data_nom <- data_origine
+names(data_nom) <- c("Prix", "Taille", "RAM", "Disque", "Ports", "Marque", "Poids")
+colnames(data_nom)
+```
+
+5. Afficher les mesures statistiques de base pour le dataset à l’aide de la
+commande summary.
+```{r}
+summary(data_nom)
+```
+
+6. Quel est le prix maximal et minimal d’un laptop en $
+```{r}
+slice_min(data_nom, Prix)
+slice_max(data_nom, Prix)
+```
+
+7. Quel est le nombre minimal de ports qu’on peut trouver dans un laptop
+de l’échantillon étudié
+```{r}
+slice_min(data_nom, Ports)[["Ports"]]
+```
+
+8. Quelle est la taille moyenne d’un laptop
+```{r}
+mean(data_nom$Taille)
+```
+
+9. Quelle est la valeur médiane du poids en onces
+```{r}
+mad(data_nom$Poids)
+```
+
+10.Quels sont les caractéristiques de la marque (longueur, classe, mode) ?
+```{r}
+# Longueur
+longueur <- length(data_nom$Marque)
+print(paste("Longueur: ", longueur))
+
+# Classe
+classe <- class(data_nom$Marque)
+print(paste("Classe: ", classe))
+
+# Mode
+mode_value <- mode(data_nom$Marque)
+print(paste("Mode: ", mode_value))
+```
+
+11.On propose d’expliquer le Prix ($) en fonction de la taille du disque (Giga).
+Afficher le nuage de point de ces deux variables. Que remarquez-vous ?
+Ajouter la droite de régression linéaire.
+```{r}
+library(ggplot2)
+fig <- ggplot(
+  data = data_nom,
+  aes(
+    x = Disque,
+    y = Prix
+  )
+) +
+  geom_point() +
+  geom_smooth(
+    method=lm,
+    se=FALSE,
+    color="red"
+  ) +
+  labs(
+    x="Taille du disque (Giga)",
+    y="Prix ($)",
+    title="Prix en fonction de la taille du disque"
+  ) +
+  theme_minimal()
+  
+fig
+```
+
+## Exercice 2
+
+Pour cet exercice, utiliser les bases de données flights, airports et airlines de la
+bibliothèque nycflights13
+```{r}
+if (!require("nycflights13")) install.packages("nycflights13")
+library(nycflights13)
+data("airports")
+data("flights")
+data("airlines")
+```
+
+1. Dans la table airports, la colonne alt contient l’altitude de l’aéroport en pieds.
+Créer une nouvelle variable alt_m contenant l’altitude en mètres (on convertit des pieds en mètres en les divisant par 3.2808).
+Sélectionnez dans la table obtenue uniquement les deux colonnes alt et alt_m
+```{r}
+airports1 <- airports
+airports1$alt_m <-airports1$alt/3.2808
+select(airports1, alt, alt_m)
+```
+
+2. Sélectionnezles vols à destination de San Francico (code SFO de la variable dest) et triez-les selon le retard au de part de croissant (variable dep_delay)
+```{r}
+data_vol_destsfo <- flights %>%
+  filter(dest == "SFO") %>%
+  arrange(dep_delay)
+data_vol_destsfo
+```
+
+3. Selectionnez les vols des mois de septembre et octobre, conservez les colonnes dest et dep_delay, créez une nouvelle variable retard_h contenant le retard au de part en heures, et conservez uniquement les 5 lignes avec les plus grandes valeurs de retard_h
+```{r}
+data_vol_destsfo %>%
+  filter(month %in% 9:10) %>%
+  select(dest, dep_delay) %>%
+  mutate(retard_h = dep_delay / 60) %>%
+  slice_max(retard_h, n = 6)
+```
+
+4. Calculer le nombre de vols à destination de Los Angeles (code LAX) pour chaque mois de l’année.
+```{r}
+flights %>%
+  filter(dest == "LAX") %>%
+  group_by(month) %>%
+  summarise(count = n())
+```
+
+5. Calculer le nombre de vols selon le mois et la destination.
+Conservez, pour chaque mois, que la destination avec le nombre maximal de vols.
+```{r}
+# Calculer le nombre de vols par mois et par destination
+flights_by_month_dest <- flights %>%
+  group_by(month, dest) %>%
+  summarise(count = n())
+flights_by_month_dest
+
+# Pour chaque mois, conserver uniquement la destination avec le nombre maximal de vols
+max_flights_by_month <- flights_by_month_dest %>%
+  group_by(month) %>%
+  filter(count == max(count))
+max_flights_by_month
+```

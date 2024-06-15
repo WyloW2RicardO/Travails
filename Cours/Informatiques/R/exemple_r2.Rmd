@@ -1,0 +1,172 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+## Exercice 1 :
+
+Soit la matrice suivante :
+1) Créer la matrice M dans R.
+2) Créer une nouvelle matrice M2 obtenue en ajoutant une nouvelle colonne
+à M d’éléments suivants : 8, 7, 1, 2, 1, 2.
+3) Transformer la matrice en data frame.
+4) Attribuer aux colonnes les noms : cas, mois, semaine, valeur et aux lignes,
+les 6 premières lettres de l’alphabet. Afficher la matrice
+5) Extraire la 2-ème, 4-ème et 6-ème lignes de M2.
+6) Ordonner les lignes de M2 suivant les éléments de valeur
+
+## Exercice 2 :
+
+Considérons le dataset qui est disponible dans R « airquality »
+1) Charger le dataset
+```{r}
+data(airquality)
+```
+
+2) Consulter la documentation de ce dataset pour comprendre sa structure.
+```{r}
+help(airquality)
+```
+
+3) Afficher les noms des variables considérées.
+```{r}
+airquality %>% colnames()
+```
+
+4) Afficher les dimensions du dataset.
+```{r}
+airquality %>% dim()
+```
+
+5) Donner les quantiles de la variable Temps.
+```{r}
+airquality %>% summary()
+```
+
+6) Donner l’écart type pour chacune des variables du dataset
+```{r}
+airquality %>% sapply(sd, na.rm = TRUE)
+```
+l'ecartype determine la dispertion des donné par rapport a la ...
+Une valeur d'ecartype elever indique que les donnée sont dispersé ...
+
+7) Déterminer le coefficient de variation de la variable Temps. Interpréter
+```{r}
+airquality$Temp %>% var()
+```
+les données sont relativement proche
+
+8) Extraire de la base :
+(a) la 3-ème ligne,
+```{r}
+airquality[3,]
+```
+
+(b) la 3-ème colonne,
+```{r}
+airquality[,3]
+```
+(c) les lignes 1, 2 et 4 avec une seule commande,
+```{r}
+airquality[c(1,2,4),]
+```
+(d) les lignes 3 à 6,
+```{r}
+airquality[3:6,]
+```
+
+(e) tout sauf les colonnes 1 et 2,
+```{r}
+airquality[,-c(1,2)]
+```
+(f) toutes les lignes ayant une température supérieure à 80.
+```{r}
+airquality %>% filter(Temp > 80)
+```
+
+9) Donner un histogramme qui représente les fréquences pour les valeurs de la variable Temp avec 20 classes.
+```{r}
+# Assurez-vous d'avoir ggplot2 installé et chargé
+if(!require(ggplot2)) install.packages('ggplot2')
+library(ggplot2)
+
+# Création de l'histogramme
+airquality %>%
+  ggplot(mapping = aes(x=Temp)) +
+  geom_histogram(
+    bins=20
+    # breaks = 20
+    , color="black"
+    , fill="white"
+  ) +
+  labs(
+    x="Temp"
+    , y="Fréquence"
+  ) +
+  theme_minimal()
+
+```
+
+10)Insérer une nouvelle variable VeryWindy dans le dataset airquality qui affiche TRUE si la valeur de Wind >= 10, et FALSE sinon.
+```{r}
+airquality2 <- airquality
+airquality2$VeryWindy <- airquality2$Wind>=10
+airquality2
+```
+
+11) Supprimer la variable VeryWindy.
+```{r}
+airquality2 %>% select(-VeryWindy)
+```
+
+12) Créer un nouveau jeu de données aq correspondant à la collection airquality privée des lignes de Ozone contenant des valeurs manquantes
+```{r}
+aq <- airquality %>% 
+  filter(!is.na(Ozone))
+aq
+```
+
+13) Installer le package ggplot2. Tester et analyser le résultat de la commande suivante : qplot(Temp, Ozone, data = airquality, colour = Month)
+```{r}
+fig <- qplot(
+  x = Temp
+  , y = Ozone
+  , data = airquality
+  , colour = Month)
+fig
+```
+
+14) Ajouter la droite de régression linéaire et déterminer ses coefficients
+```{r}
+coef_reg <- coef(reg)
+fig_reg <- fig +
+  geom_smooth() +
+  # geom_abline(
+  #   intercept = coef_reg[1],
+  #   slope = coef_reg[2],
+  #   color = "red"
+  # )
+  stat
+fig_reg
+reg = lm(airquality$Ozone ~ airquality$Temp)
+summary(reg)
+```
+
+## Exercice 3 :
+
+Ecrire une fonction avec R qui calcule l’IMC (Indice de Masse Corporelle). Cet
+indice est donné par une formule dépendant du poids et de la taille de la
+personne.
+
+La fonction doit afficher un message à l’utilisateur selon la valeur de l’IMC :
+Si imc<17, la fonction affiche le message "Maigre" ;
+Si 17<=imc<27, la fonction affiche "Normale" ;
+Sinon (imc>=27), la fonction retourne le message "obèse"
+
+## Exercice 4 :
+
+En statistique, la variance est une mesure de la dispersion des valeurs d'un
+échantillon ou d'une distribution de probabilité. Elle se calcule comme suit :
+
+1) Ecrire une fonction avec R qui calcule la variance.
+2) Tester la fonction et vérifier le résultat avec celui de la fonction prédéfinie
+sur R.

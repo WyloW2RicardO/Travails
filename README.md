@@ -1,6 +1,8 @@
 # Travaux
 
-J'acumulerai ici les diferents cour et exemple
+J'acumulerai ici les differents cour et exemple
+
+pour la partie informatique je voudrais eviter de fair un didadictiel ou une liste de foncition mais plus une liste de methode efficase (qui reste à definir.
 
 ## Reste à fair
 

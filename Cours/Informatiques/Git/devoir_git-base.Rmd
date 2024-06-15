@@ -1,0 +1,75 @@
+---
+title: "Les branches"
+author: "WyloW"
+date: "2024-06-05"
+output: html_document
+---
+
+```{r}
+install.packages("knitr")
+library(knitr)
+```
+
+## Créer un projet Git
+```{bash}
+mkdir dir
+cd dir
+touch file1.txt file2.txt
+git init
+git add file1.txt file2.txt
+git commit -m "Initial commit"
+```
+
+## Travailler avec Git en local
+```{bash}
+# Modifier file1.txt
+echo "Contenu modifié" > file1.txt
+# Ajouter un nouveau fichier file3.txt
+touch file3.txt
+git add file1.txt file3.txt
+git commit -m "Modification de file1.txt et ajout de file3.txt"
+# Modifier file.txt à nouveau
+echo "Nouveau contenu" > file.txt
+git add file.txt
+git commit -m "Modification de file.txt"
+git log
+```
+
+## Créer une branche "idee" et travailler dessus
+```{bash}
+git branch idee
+git checkout idee # pour passer sur la branche idee
+# Modifier file1.txt
+echo "Nouvelle idée" >> file1.txt
+# Ajouter un fichier file4.txt
+touch file4.txt
+git add file1.txt file4.txt
+git commit -m "Ajout de l'idée et de file4.txt sur la branche idee"
+git log
+```
+
+## Travailler aussi sur la branche master
+```{bash}
+git checkout master # revenir sur la branche master
+# Modifier file2.txt
+echo "Modification sur la branche master" >> file2.txt
+git add file2.txt
+git commit -m "Modification de file2.txt sur la branche master"
+# Créer un fichier file5.txt
+touch file5.txt
+git add file5.txt
+git commit -m "Ajout de file5.txt sur la branche master"
+git log
+```
+
+## Voir l'état de chaque branche
+```{bash}
+git status
+```
+
+## Fusionner la branche "idee" sur la branche "master"
+```{bash}
+git checkout master # Assurez-vous que vous êtes sur la branche master
+git merge idee
+git log
+```

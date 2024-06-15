@@ -1,0 +1,403 @@
+---
+title: "Exercice R"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+## Exercice 1 :
+Considérons le dataset qui est disponible dans R « iris »
+```{r}
+# Charger le jeu de données iris
+library(datasets)
+data("iris")
+```
+
+1) Afficher les 6 premières lignes du dataset
+```{r}
+head(
+  x = iris
+  , n = 6L
+)
+```
+
+2) Donner les dimensions de ce dataset (nombre de lignes et colonnes)
+```{r}
+# Obtenir les dimensions
+dimensions <- dim(iris)
+nombre_de_lignes <- dimensions[1]
+nombre_de_colonnes <- dimensions[2]
+
+# Afficher les résultats
+cat("Nombre de lignes :", nombre_de_lignes, "\n")
+cat("Nombre de colonnes :", nombre_de_colonnes, "\n")
+```
+
+3) Sélectionner les lignes avec longueur des pétales <1,5
+```{r}
+subset(
+  x = iris # object to be subsetted
+  , subset = Petal.Length <= 1.5 # logical expression indicating elements or rows to keep: missing values are taken as false.
+)
+```
+```{r}
+iris[iris$Petal.Length <= 1.5,]
+```
+
+4) Sélectionner le sous-ensemble concernant les espèces setosa OU versicolor.
+```{r}
+subset(
+  x = iris
+  , subset = Species == "setosa"
+    | Species == "versicolor"
+)
+```
+
+5) Afficher le nombre d’iris ayant des pétales de longueur égale à 3,5 cm
+```{r}
+nrow(subset(
+  x = iris
+  , subset = Petal.Length == 3.5
+))
+```
+```{r}
+length(iris$Petal.Length[iris$Petal.Length == 3.5])
+```
+
+6) Sélectionner les fleurs dont la longueur du pétale est inférieure à 1,5 cm OU supérieure à 5 cm.
+```{r}
+subset(
+  x = iris
+  , subset = Petal.Length < 1.5
+    | Petal.Length > 5
+)
+```
+
+7) Extraire la première et la troisième ligne du dataset
+```{r}
+iris[c(1, 3), ]
+```
+
+8) Tracer un nuage de points pour représenter Longueur des sépales en fonction de Longueur des pétales. Ajouter la droite de régression.
+```{r}
+# Charger le package ggplot2
+if(!require("ggplot2")) {
+  install.packages("ggplot2")
+}
+library(ggplot2)
+
+# Créer un nuage de points avec la longueur des sépales en fonction de la longueur des pétales
+ggplot(
+  data = iris
+  , mapping = aes(
+    x = Sepal.Length
+    , y = Petal.Length
+  )
+) +
+geom_point() +
+labs(
+  x = "Longueur des sépales"
+  , y = "Longueur des pétales"
+) +
+theme_minimal() +
+
+# Ajouter une droite de régression
+geom_smooth(
+  method = "lm"
+  #, se = FALSE
+  , color = "blue"
+)
+```
+```{r}
+plot(
+  x= iris$Sepal.Length
+  , y = iris$Petal.Length
+  , xlab = "Longueur des sépales"
+  , ylab =  "Longueur des pétale"
+)
+
+abline(
+  lm(iris$Petal.Length ~ iris$Sepal.Length)
+  , col = "red"
+)
+```
+
+9) Pour chaque espèce de fleurs, indiquer le nombre de lignes.
+```{r}
+# Charger le package dplyr
+library(dplyr)
+
+# Compter le nombre de lignes pour chaque espèce
+data <- iris %>%
+  group_by(Species) %>% # group_by(iris, Species)
+  summarise(Nombre_de_lignes = n())
+
+data
+
+```
+```{r}
+data1 <- table(iris$Species)
+data1
+```
+
+10) A partir du résultat précédent, réaliser une représentation en camembert (pie chart), puis en bâtons (barplot). Indice pie()
+```{r}
+# Charger le package ggplot2
+library(ggplot2)
+
+# Tracer le camembert
+ggplot(
+  data = data
+  , mapping = aes(
+    x = ""
+    , y = Nombre_de_lignes
+    , fill = Species
+  )
+) + 
+geom_bar(stat = "identity") +
+coord_polar(theta = "y") +
+theme_void() +
+labs(title = "Répartition des espèces dans l'ensemble de données iris")
+
+# Tracer le graphique en bâtons
+ggplot(
+  data = data
+  , mapping = aes(
+    x = Species
+    , y = Nombre_de_lignes
+    , fill = Species
+  )
+) +
+geom_bar(stat = "identity") +
+theme_minimal() +
+labs(
+  x = "Espèces"
+  , y = "Nombre de lignes"
+  , title = "Nombre de lignes par espèce"
+)
+```
+```{r}
+pie(x = data1)
+barplot(data1)
+```
+
+11)Créer une boîte à moustache (boxplot) les 4 variables numériques du jeu de données iris.
+```{r}
+boxplot(iris[1:4])
+```
+
+12)Réaliser le même graphique en ajoutant un titre et en supprimant les valeurs extrêmes.
+```{r}
+boxplot(
+  x = iris[1:4]
+  , outline = FALSE
+  , main = "Distribution des mesures dans le jeu de données iris"
+)
+```
+
+13)Représenter le pie chart et le boxplot sur la même fenêtre graphique, l’un à côté de l’autre. Indice par(), option mfrow
+```{r}
+par(mfrow = c(1, 2))
+
+# Créer un box-plot sans les valeurs extrêmes et avec un titre
+boxplot(
+  x = iris[1:4]
+  , outline = FALSE
+  , main = "Distribution des mesures dans le jeu de données iris"
+)
+
+# Créer un diagramme circulaire (pie chart) pour les proportions des espèces dans iris
+species_counts <- table(iris$Species)
+pie(
+  x = species_counts
+  , labels = names(species_counts)
+  , main = "Répartition des espèces dans iris"
+)
+```
+
+14)Exportez le graphique obtenu de la question précédente (le pie chart et le boxplot) en pdf sur votre machine.
+```{r}
+# Le graphique a été exporté sous le nom "combined_plot.pdf" dans votre répertoire de travail
+nom_export = "combined_plot.pdf"
+
+# Exporter le graphique combiné en format PDF
+pdf(
+  file = nom_export
+  , width = 10
+  , height = 5
+)
+par(mfrow = c(1, 2))  # Afficher les graphiques côte à côte
+boxplot(
+  x = iris[1:4]
+  , outline = FALSE
+  , main = "Distribution des mesures dans le jeu de données iris"
+)
+species_counts <- table(iris$Species)
+pie(
+  x = species_counts
+  , labels = names(species_counts)
+  , main = "Répartition des espèces dans iris"
+)
+dev.off()  # Fermer le fichier PDF
+```
+
+## Exercice 2 :
+1) Importer dans une variable nommée A les données contenues dans le fichier nommé auto2004_original.txt.
+Source : https://github.com/PF-BB/Formation-Rrrr/tree/master/docs/source/TP1/data
+```{r}
+# Spécifiez le chemin vers le fichier auto2004_original.txt
+chemin <- "https://raw.githubusercontent.com/PF-BB/Formation-Rrrr/master/docs/source/TP1/data"
+ficher <- "/auto2004_original.txt"
+chemin_fichier <- paste0(chemin, ficher)
+
+# Importez les données dans la variable A
+A <- read.table(
+  file = chemin_fichier
+  , header = TRUE # indique que la première ligne du fichier contient les noms des colonnes.
+  , sep = "\t" # spécifie que le séparateur entre les valeurs est une tabulation (vous pouvez ajuster cela en fonction du format réel du fichier).
+)
+```
+
+2) Afficher les noms des variables considérées.
+```{r}
+# Affichez les noms des variables
+colnames(A)
+
+```
+
+3) Quel est le mode des objets créés par la fonction read.table() ?
+```{r}
+str(A)
+```
+
+4) Afficher le nombre de lignes et de colonnes.
+```{r}
+# Obtenir les dimensions
+dimensions <- dim(A)
+nombre_de_lignes <- dimensions[1]
+nombre_de_colonnes <- dimensions[2]
+
+# Afficher les résultats
+cat("Nombre de lignes :", nombre_de_lignes, "\n")
+cat("Nombre de colonnes :", nombre_de_colonnes, "\n")
+```
+
+5) Afficher le 6 premières lignes de ce jeu de données
+```{r}
+head(
+  x = iris
+  , n = 6L
+)
+```
+
+6) Afficher les mesures statistiques de base
+```{r}
+summary(A)
+```
+
+7) Déterminer variance et écart-type de la variable Puissance.
+```{r}
+# Remplacez 'VotreVariable' par le nom réel de votre variable, par exemple 'Sepal.Length'
+nom_variable <- 'Puissance'
+
+# Calcul de la variance pour la variable spécifiée
+variance <- var(A[[nom_variable]])
+print(paste("La variance de", nom_variable, "est:", variance))
+
+# Calcul de l'écart-type pour la variable spécifiée
+ecart_type <- sd(A[[nom_variable]])
+print(paste("L'écart-type de", nom_variable, "est:", ecart_type))
+```
+
+8) Déterminer la covariance des variables Puissance et Poids.
+```{r}
+nom_variable <- c('Puissance','Poids')
+
+# Calcul de la covariance pour la variable spécifiée
+covariance <- cov(
+  x = A[[nom_variable[1]]]
+  , y = A[[nom_variable[2]]]
+)
+print(paste(
+  "La covariance de"
+  , nom_variable[1]
+  , " et du "
+  , nom_variable[2]
+  , "est:"
+  , covariance
+))
+```
+
+9) Importez dans une variable nommée S le jeu de données auto2004_don_manquante.txt (même source). Combien de valeurs manquantes sont contenues dans le fichier ?
+```{r}
+ficher <- "/auto2004_don_manquante.txt"
+chemin_fichier <- paste0(
+  chemin
+  , ficher
+)
+
+S <- read.table(
+  file = chemin_fichier
+  , header = TRUE
+  , sep = "\t"
+)
+
+cat(
+  "nombre de valeur manquante "
+  , sum(is.na(S))
+)
+```
+
+10)Insérer la var VeryWeighty qui affiche TRUE pour Poids >= 1000
+```{r}
+S$very_weighty <- S$Poids >= 1000
+```
+
+
+## Exercice 3 :
+1. Exécuter la fonction suivante et la tester.
+monexemple<-function(A,B){
+out<-(A+B)^2
+out<-out + A
+return (out)
+}
+2. Ecrire en R une fonction CV qui permet de calculer le coefficient de variation d'un vecteur de valeurs numériques. On rappelle que le coefficient de variation est défini comme étant le rapport de l'écart type sur la moyenne des valeurs.
+```{r}
+cv <- function(x){sd(x)/mean(x)}
+```
+
+3. Ecrire en R une fonction PO qui permet de déterminer par la méthode des moindre carrés (MCO) la valeur de la pente de la droite ainsi que l’ordonnée à l’origine d’une équation de régression linéaire simple.
+```{r}
+PO <- function(x, y) {
+  # Calcul des sommes nécessaires pour les formules des moindres carrés
+  n <- length(x)
+  sum_x <- sum(x)
+  sum_y <- sum(y)
+  sum_xy <- sum(x*y)
+  sum_x2 <- sum(x^2)
+  
+  # Calcul de la pente (a) et de l'ordonnée à l'origine (b)
+  a <- (n*sum_xy - sum_x*sum_y) / (n*sum_x2 - sum_x^2)
+  b <- (sum_y - a*sum_x) / n
+  
+  # Retourne une liste contenant la pente et l'ordonnée à l'origine
+  return(list(
+    pente = a
+    , ordonnee_origine = b
+  ))
+}
+
+# Exemple d'utilisation :
+x <- c(1, 2, 3, 4, 5)
+y <- c(2, 4, 5, 4, 5)
+resultat <- PO(x, y)
+print(resultat)
+```

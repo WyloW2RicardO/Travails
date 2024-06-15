@@ -1,0 +1,38 @@
+---
+title: "dplyr"
+author: "WyloW"
+date: "2024-06-04"
+output: html_document
+---
+
+```{r}
+if(!require("dplyr")) {
+  install.packages("dplyr")
+}
+library(dplyr)
+```
+
+
+## Extraire
+
+### Slice
+
+- slice() vous permet d'indexer les lignes en fonction de leurs emplacements (entiers). Il vous permet de sélectionner, supprimer et dupliquer des lignes. Il est accompagné d'un certain nombre d'assistants pour les cas d'utilisation courants
+- slice_head() et slice_tail() sélectionnent la première ou la dernière ligne.
+- slice_sample() sélectionne aléatoirement les lignes.
+- slice_min() et slice_max() sélectionnent les lignes avec les valeurs les plus petites ou les plus grandes d'une variable.
+
+```{r}
+slice(
+  'data'
+  , 'colonne'
+  , n #nombre de ligne
+)
+```
+
+### Filter
+
+```{r}
+filter()
+```
+
